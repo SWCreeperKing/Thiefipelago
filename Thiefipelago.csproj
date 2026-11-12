@@ -36,6 +36,9 @@
 		<Reference Include="Assembly-CSharp">
 			<HintPath>D:\Programs\steam\steamapps\common\Thief Simulator\thief_Data\Managed\Assembly-CSharp.dll</HintPath>
 		</Reference>
+		<Reference Include="BundledApClient">
+		  <HintPath>Lib\BundledApClient.dll</HintPath>
+		</Reference>
 		<Reference Include="ch.sycoforge.Decal">
 			<HintPath>D:\Programs\steam\steamapps\common\Thief Simulator\thief_Data\Managed\ch.sycoforge.Decal.dll</HintPath>
 		</Reference>
@@ -74,9 +77,6 @@
 		</Reference>
 		<Reference Include="Mono.WebBrowser">
 			<HintPath>D:\Programs\steam\steamapps\common\Thief Simulator\thief_Data\Managed\Mono.WebBrowser.dll</HintPath>
-		</Reference>
-		<Reference Include="Newtonsoft.Json">
-			<HintPath>D:\Programs\steam\steamapps\common\Thief Simulator\thief_Data\Managed\Newtonsoft.Json.dll</HintPath>
 		</Reference>
 		<Reference Include="Novell.Directory.Ldap">
 			<HintPath>D:\Programs\steam\steamapps\common\Thief Simulator\thief_Data\Managed\Novell.Directory.Ldap.dll</HintPath>
@@ -417,13 +417,27 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Compile Include="Added\DebugWindow.cs" />
+		<Compile Include="Added\GuiBuilder.cs" />
+		<Compile Include="Added\GuiUpdaterinator.cs" />
 		<Compile Include="Added\HarmonySetup.cs" />
 		<Compile Include="Added\Helper.cs" />
+		<Compile Include="Added\KeyRegistry.cs" />
+		<Compile Include="Archipelago\ApData.cs" />
+		<Compile Include="Archipelago\APGui.cs" />
+		<Compile Include="Archipelago\ThiefClient.cs" />
+		<Compile Include="Archipelago\ItemHandler.cs" />
 		<Compile Include="Core.cs" />
 		<Compile Include="Patches\PickupPatch.cs" />
+		<Compile Include="Patches\QoL\ACAB.cs" />
 		<Compile Include="Patches\QoL\InfLockPickHealth.cs" />
 		<Compile Include="Patches\SaveChanges\SaveChangeDirectory.cs" />
 		<Compile Include="Patches\SaveChanges\SaveItemOverride.cs" />
+		<Compile Include="Patches\SkillPatch.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Lib\" />
 	</ItemGroup>
 	
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">

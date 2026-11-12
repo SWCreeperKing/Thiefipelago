@@ -6,9 +6,19 @@ namespace Thiefipelago.Patches.QoL;
 [PatchAll]
 public static class InfLockPickHealth
 {
-    [HarmonyPatch(typeof(LockpickObject), "TakeDamage"), HarmonyPrefix]
-    public static bool NoDamage(float damage) => false;
+    [DebugVariableMarker("Lv. 1 Lock Pick Inf Durability")]
+    public static bool InfLv1LockPick = true;
     
-    [HarmonyPatch(typeof(RoundLockpickPin), "LockPin"), HarmonyPostfix]
-    public static void NoDamage(RoundLockpickPin __instance) => __instance.SetPrivateField("failNum", 0);
+    [DebugVariableMarker("Lv. 2 Lock Pick Inf Durability")]
+    public static bool InfLv2LockPick = true;
+    
+    [HarmonyPatch(typeof(LockpickObject), "TakeDamage"), HarmonyPrefix]
+    public static bool NoDamage(float damage) => !InfLv1LockPick;
+
+    [HarmonyPatch(typeof(LockpickObvController), "LockpickControl"), HarmonyPrefix]
+    public static void NoDamage(LockpickObvController __instance)
+    {
+        if (!InfLv2LockPick) return;
+        __instance.SetPrivateField("durability", 3);
+    }
 }

@@ -7,6 +7,7 @@ namespace Thiefipelago.Patches.SaveChanges;
 [PatchAll]
 public static class SaveItemOverride
 {
+    [DebugVariableMarker("Respawn Loot")] public static bool RespawnLoot = false;
     // [HarmonyPatch(typeof(SaveController), "LoadSceneObject"), HarmonyPrefix]
     // public static bool LoadSceneObject(ItemObject itemObj, string id)
     // {
@@ -19,6 +20,7 @@ public static class SaveItemOverride
     [HarmonyPatch(typeof(SaveController), "ResetItemsOnFloorInNeighborhoods"), HarmonyPrefix]
     public static bool ResetItemsOnFloorInNeighborhoods()
     {
+        if (!RespawnLoot) return true;
         var active = SceneManager.GetActiveScene().name;
         if (active != "house" && active != "pawn" && active != "junkyard_done" && active != "hideout_scene")
             return false;
@@ -31,4 +33,5 @@ public static class SaveItemOverride
                   );
         return false;
     }
+
 }
