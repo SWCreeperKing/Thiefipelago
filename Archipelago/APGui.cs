@@ -1,4 +1,5 @@
 ﻿using Thiefipelago.Added;
+using Thiefipelago.Patches.SaveChanges;
 using UnityEngine;
 using static Thiefipelago.Archipelago.ThiefClient;
 
@@ -36,7 +37,12 @@ public class APGui : GuiBuilder
 
         ConnectedBox = new Window(1, 100, 100, 200, "AP Client")
            .AddChildren(
-                new Spacer(30), new UiButton("Disconnect", 30, () => Client.TryDisconnect()),
+                new Spacer(30), new UiButton("Disconnect", 30, () =>
+                {
+                    SaveChangeDirectory.SaveFilePrefix = "";
+                    Client.TryDisconnect();
+                    LoadingController.instance.LoadScene("mainmenu");
+                }),
                 new Label("Connected", 20, Color.green, alignment: TextAnchor.UpperLeft)
             );
     }

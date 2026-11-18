@@ -14,6 +14,7 @@ public static class ThiefClient
     public static ApClient Client = new(new TimeSpan(0, 1, 0));
     public static ApData Data = new();
     public static string GameUUID = "";
+    public static Dictionary<string, string[]> AbilityToolMap = [];
 
     public static void Init()
     {
@@ -29,8 +30,11 @@ public static class ThiefClient
 
         Client.OnConnectionEvent += _ =>
         {
+            ItemHandler.HandlerReset();
             try
             {
+                Client.GetFromStorageAsync("item_count", i => ItemHandler.TotalItemCount = i, Scope.Slot, 0);
+                
                 GameUUID = (string)Client.SlotData["uuid"];
                 var path = $"{Directory.GetCurrentDirectory()}/Archipelago/{GameUUID}";
                 Directory.CreateDirectory(path);
@@ -59,7 +63,7 @@ public static class ThiefClient
 
         var login = new LoginInfo(port, slotName, addressSplit[0], password);
 
-        return Client.TryConnect(login, "DinoBones Tidy Up the Museum", ItemsHandlingFlags.AllItems);
+        return Client.TryConnect(login, "Thief Simulator 1", ItemsHandlingFlags.AllItems);
     }
 
     public static void SaveFile() => File.WriteAllText("ApConnection.json", JsonConvert.SerializeObject(Data));
@@ -72,8 +76,10 @@ public static class ThiefClient
             Client.UpdateConnection();
 
             if (!Client.IsConnected) return;
-            if (Core.Skills.Length != 24) return; 
+            if (Core.Skills.Count != 24) return; 
             if (Core.Scene is "nm logo" or "mainmenu" or "play way logo") return;
+            if (PlayerInventory.instance is null) return;
+            if (PlayerInventory.itemsList is null) return;
             Client.UpdateItemHandler();
         }
         catch (Exception e) { Core.Log.Error(e); }

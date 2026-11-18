@@ -28,8 +28,8 @@ public static class PickupPatch
     {
         if (!PrintGrabMsgs) return;
         var id = __instance.gameObject.GetComponent<UniqueId>();
-        if (ThiefClient.ItemIdToLocation.ContainsKey(id.uniqueId)) return;
-        Core.Log.Warning($"Grabbed: [{id.uniqueId}]");
+        if (ThiefClient.ItemIdToLocation.ContainsKey(id.uniqueId)) Core.Log.Msg($"Already Have: [{id.uniqueId}]");
+        else Core.Log.Warning($"Grabbed New: [{id.uniqueId}]");
     }
 
     [HarmonyPatch(typeof(ItemObject), "Awake"), HarmonyPrefix]

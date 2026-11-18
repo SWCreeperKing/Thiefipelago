@@ -433,7 +433,7 @@
 		<Compile Include="Patches\QoL\InfLockPickHealth.cs" />
 		<Compile Include="Patches\SaveChanges\SaveChangeDirectory.cs" />
 		<Compile Include="Patches\SaveChanges\SaveItemOverride.cs" />
-		<Compile Include="Patches\SkillPatch.cs" />
+		<Compile Include="Patches\StopLearning.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
